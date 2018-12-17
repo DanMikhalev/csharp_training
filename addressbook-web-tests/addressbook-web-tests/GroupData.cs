@@ -22,5 +22,10 @@ namespace WebAddressbookTests
             this.header = header;
             this.footer = footer;
         }
+
+        public GroupData(string name)
+        {
+            this.name = name;
+        }
     }
 }
