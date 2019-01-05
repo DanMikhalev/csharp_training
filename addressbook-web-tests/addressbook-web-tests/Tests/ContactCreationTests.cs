@@ -5,22 +5,14 @@ namespace WebAddressbookTests
     [TestFixture]
     public class ContactCreationTests : TestBase
     {
-        
-
         [Test]
         public void ContactCreationTest()
         {
-            ContactData contact = new ContactData("John", "Doe");
-            contact.NickName = "Yappie";
+            app.Navigator.GoToContactsPage();
+            ContactData contact = new ContactData("Doge", "Sparta");
+            contact.NickName = "Impaled";
             contact.Birthday = new ContactData.DataInfo(2, 5, 1999);
-            app.Contacts
-                .InitContactCreation()
-                .FillContactInfo(contact)
-                .SubminContactInfo();
-        }
-
-        
-
-        
+            app.Contacts.Create(contact);
+        }             
     }
 }

@@ -8,11 +8,63 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    public class ContactHelper :HelperBase
+    public class ContactHelper : HelperBase
     {
 
         public ContactHelper(ApplicationManager manager) : base(manager)
         {
+        }
+        public ContactHelper Create(ContactData contact)
+        {
+            InitContactCreation();
+            FillContactInfo(contact);
+            SubminContactInfo();
+            return this;
+        }
+
+        internal ContactHelper Modify(int contactNum, ContactData contact)
+        {
+            InitModification(contactNum);
+            FillContactInfo(contact);
+            SubmitUpdateCommand();
+            return this;
+        }
+
+        private ContactHelper InitModification(int contactNum)
+        {
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + contactNum + "]")).Click();
+            return this;
+        }
+
+        public ContactHelper Remove(int contactNum)
+        {
+            SelectContact(contactNum);
+            SubmitDeleteCommand();
+            AcceptDeleting();
+            return this;
+        }
+
+        private ContactHelper AcceptDeleting()
+        {
+            IAlert alert = driver.SwitchTo().Alert();
+            alert.Accept();
+            return this;
+        }
+        private ContactHelper SubmitUpdateCommand()
+        {
+            driver.FindElement(By.XPath("//input[@value='Update']")).Click();
+            return this;
+        }
+        private ContactHelper SubmitDeleteCommand()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            return this;
+        }
+
+        public ContactHelper SelectContact(int contactNum)
+        {
+            driver.FindElement(By.XPath("//input[@id='" + contactNum + "']")).Click();
+            return this;
         }
         public ContactHelper SubminContactInfo()
         {
@@ -61,8 +113,6 @@ namespace WebAddressbookTests
             new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText(contact.AdditionalDate.GetMonthAsString());
             driver.FindElement(By.Name("ayear")).Clear();
             driver.FindElement(By.Name("ayear")).SendKeys(contact.AdditionalDate.Year.ToString());
-            driver.FindElement(By.Name("new_group")).Click();
-            driver.FindElement(By.XPath("//option[@value='[none]']")).Click();
             driver.FindElement(By.Name("address2")).Clear();
             driver.FindElement(By.Name("address2")).SendKeys(contact.Address2);
             driver.FindElement(By.Name("phone2")).Clear();
