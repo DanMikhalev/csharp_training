@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    public class ContactRemovalTests:TestBase
+    public class ContactRemovalTests: AuthTestBase
     {
         [Test]
         public void ContactRemovalTest()
         {
             app.Navigator.GoToContactsPage();
-            app.Contacts.Remove(8);
+            app.Contacts.Remove(5);
         }
     }
 }
