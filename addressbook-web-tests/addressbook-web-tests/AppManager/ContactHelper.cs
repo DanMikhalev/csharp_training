@@ -36,9 +36,9 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper Remove(int contactNum)
+        public ContactHelper RemoveFirst()
         {
-            SelectContact(contactNum);
+            SelectFirstContact();
             SubmitDeleteCommand();
             AcceptDeleting();
             return this;
@@ -64,6 +64,12 @@ namespace WebAddressbookTests
         public ContactHelper SelectContact(int contactNum)
         {
             driver.FindElement(By.XPath("//input[@id='" + contactNum + "']")).Click();
+            return this;
+        }
+
+        public ContactHelper SelectFirstContact()
+        {
+            driver.FindElements(By.Name("entry"))[0].FindElement(By.Name("selected[]")).Click();
             return this;
         }
         public ContactHelper SubminContactInfo()

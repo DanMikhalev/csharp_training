@@ -43,7 +43,7 @@ namespace WebAddressbookTests
 
         public void Logout()
         {
-            if (IsElementPresent(By.LinkText("Logout"))) 
+            if (IsElementPresent(By.Name("logout"))) 
             driver.FindElement(By.LinkText("Logout")).Click();
         }
     }
