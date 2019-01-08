@@ -22,6 +22,18 @@ namespace WebAddressbookTests
             return this;
         }
 
+        internal List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.GoToContactsPage();
+            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+            foreach (IWebElement element in elements)
+            {
+                contacts.Add(new ContactData(element.FindElements(By.CssSelector("td"))[2].Text, element.FindElements(By.CssSelector("td"))[1].Text));
+            }
+            return contacts;
+        }
+
         internal ContactHelper Modify(int contactNum, ContactData contact)
         {
             InitModification(contactNum);
@@ -32,7 +44,7 @@ namespace WebAddressbookTests
 
         private ContactHelper InitModification(int contactNum)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + contactNum + "]")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (contactNum + 1) + "]")).Click();
             return this;
         }
 

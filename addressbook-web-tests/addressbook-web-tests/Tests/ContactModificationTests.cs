@@ -16,7 +16,17 @@ namespace WebAddressbookTests
             ContactData contact = new ContactData("Roma", "Minaev");
             contact.NickName = "Dorn";
             contact.Birthday = new ContactData.DataInfo(2, 1, 1993);
-            app.Contacts.Modify(1,contact);
+
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
+
+            app.Contacts.Modify(0, contact);
+
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+            oldContacts[0].FirstName = contact.FirstName;
+            oldContacts[0].LastName = contact.LastName;
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
         }
     }
 }
