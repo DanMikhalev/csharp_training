@@ -14,19 +14,23 @@ namespace WebAddressbookTests
         {
             app.Navigator.GoToContactsPage();
 
+
+            if (app.Contacts.GetContactsCount() < 1) app.Contacts.Create(new ContactData("Nick", "Emilson"));
             List<ContactData> oldContacts = app.Contacts.GetContactList();
-
-            if (oldContacts.Count < 1) app.Contacts.Create(new ContactData("Nick", "Emilson"));
-            int oldContactsCount = app.Contacts.GetContactsCount();
-
+            ContactData contactToBeRemoved = oldContacts[0];
             app.Contacts.RemoveFirst();
 
-            Assert.AreEqual(oldContactsCount-1, app.Contacts.GetContactsCount());
+            Assert.AreEqual(oldContacts.Count - 1, app.Contacts.GetContactsCount());
             List<ContactData> newContacts = app.Contacts.GetContactList();
             if (oldContacts.Count > 0) oldContacts.RemoveAt(0);
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
+
+            foreach (ContactData contact in newContacts)
+            {
+                Assert.AreNotEqual(contactToBeRemoved.Id, contact.Id);
+            }
         }
     }
 }

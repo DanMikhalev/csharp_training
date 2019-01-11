@@ -8,221 +8,39 @@ namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string firstName;
-        private string lastName;
-        private string middleName ="";
-        private string nickName = "";
-        private string title = "";
-        private string company = "";
-        private string address = "";
-        private string home = "";
-        private string mobile = "";
-        private string work = "";
-        private string fax = "";
-        private string email = "";
-        private string email2 = "";
-        private string email3 = "";
-        private string homepage = "";
-        private DataInfo birthday =  new DataInfo();
-        private string address2 = "";
-        private string phone2 = "";
-        private string notes = "";
+        private DataInfo birthday = new DataInfo();
         private DataInfo additionalDate = new DataInfo();
 
-        public string FirstName
-        {
-            get
-            {
-                return firstName;
-            }
+        public string Id { get; set; }
+        public string FirstName { get; set; }
 
-            set
-            {
-                firstName = value;
-            }
-        }
+        public string LastName { get; set; }
 
-        public string LastName
-        {
-            get
-            {
-                return lastName;
-            }
+        public string MiddleName { get; set; }
 
-            set
-            {
-                lastName = value;
-            }
-        }
+        public string NickName { get; set; }
 
-        public string MiddleName
-        {
-            get
-            {
-                return middleName;
-            }
+        public string Title { get; set; }
 
-            set
-            {
-                middleName = value;
-            }
-        }
+        public string Company { get; set; }
 
-        public string NickName
-        {
-            get
-            {
-                return nickName;
-            }
+        public string Address { get; set; }
 
-            set
-            {
-                nickName = value;
-            }
-        }
+        public string Home { get; set; }
 
-        public string Title
-        {
-            get
-            {
-                return title;
-            }
+        public string Mobile { get; set; }
 
-            set
-            {
-                title = value;
-            }
-        }
+        public string Work { get; set; }
 
-        public string Company
-        {
-            get
-            {
-                return company;
-            }
+        public string Fax { get; set; }
 
-            set
-            {
-                company = value;
-            }
-        }
+        public string Email { get; set; }
 
-        public string Address
-        {
-            get
-            {
-                return address;
-            }
+        public string Email2 { get; set; }
 
-            set
-            {
-                address = value;
-            }
-        }
+        public string Email3 { get; set; }
 
-        public string Home
-        {
-            get
-            {
-                return home;
-            }
-
-            set
-            {
-                home = value;
-            }
-        }
-
-        public string Mobile
-        {
-            get
-            {
-                return mobile;
-            }
-
-            set
-            {
-                mobile = value;
-            }
-        }
-
-        public string Work
-        {
-            get
-            {
-                return work;
-            }
-
-            set
-            {
-                work = value;
-            }
-        }
-
-        public string Fax
-        {
-            get
-            {
-                return fax;
-            }
-
-            set
-            {
-                fax = value;
-            }
-        }
-
-        public string Email
-        {
-            get
-            {
-                return email;
-            }
-
-            set
-            {
-                email = value;
-            }
-        }
-
-        public string Email2
-        {
-            get
-            {
-                return email2;
-            }
-
-            set
-            {
-                email2 = value;
-            }
-        }
-
-        public string Email3
-        {
-            get
-            {
-                return email3;
-            }
-
-            set
-            {
-                email3 = value;
-            }
-        }
-
-        public string Homepage
-        {
-            get
-            {
-                return homepage;
-            }
-
-            set
-            {
-                homepage = value;
-            }
-        }
+        public string Homepage { get; set; }
 
         internal DataInfo Birthday
         {
@@ -248,44 +66,11 @@ namespace WebAddressbookTests
                 additionalDate = value;
             }
         }
-        public string Address2
-        {
-            get
-            {
-                return address2;
-            }
+        public string Address2 { get; set; }
 
-            set
-            {
-                address2 = value;
-            }
-        }
+        public string Phone2 { get; set; }
 
-        public string Phone2
-        {
-            get
-            {
-                return phone2;
-            }
-
-            set
-            {
-                phone2 = value;
-            }
-        }
-
-        public string Notes
-        {
-            get
-            {
-                return notes;
-            }
-
-            set
-            {
-                notes = value;
-            }
-        }
+        public string Notes { get; set; }
 
         public class DataInfo
         {
@@ -350,16 +135,16 @@ namespace WebAddressbookTests
 
         public ContactData()
         {
-            firstName = "John";
-            middleName = "Unknown";
-            lastName = "Doe";
+            FirstName = "John";
+            MiddleName = "Unknown";
+            LastName = "Doe";
             Birthday = new DataInfo();
         }
         public ContactData(string firstName, string lastName)
         {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.Birthday = new DataInfo();            
+            FirstName = firstName;
+            LastName = lastName;
+            this.Birthday = new DataInfo();
         }
 
         public bool Equals(ContactData other)

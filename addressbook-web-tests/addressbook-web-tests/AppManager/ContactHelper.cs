@@ -49,7 +49,10 @@ namespace WebAddressbookTests
                 ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
                 foreach (IWebElement element in elements)
                 {
-                    contactCache.Add(new ContactData(element.FindElements(By.CssSelector("td"))[2].Text, element.FindElements(By.CssSelector("td"))[1].Text));
+                    contactCache.Add(new ContactData(element.FindElements(By.CssSelector("td"))[2].Text, element.FindElements(By.CssSelector("td"))[1].Text)
+                    {
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("id")
+                    });
                 }
             }
             return contactCache;
