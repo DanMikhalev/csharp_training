@@ -26,7 +26,7 @@ namespace WebAddressbookTests
             }
             Type(By.Name("user"), acc.Username);
             Type(By.Name("pass"), acc.Password);
-            driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
+            driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
 
         public bool IsLoggedIn(AccountData acc)
@@ -43,7 +43,7 @@ namespace WebAddressbookTests
 
         public void Logout()
         {
-            if (IsElementPresent(By.Name("logout"))) 
+            if (IsElementPresent(By.LinkText("Logout"))) 
             driver.FindElement(By.LinkText("Logout")).Click();
         }
     }

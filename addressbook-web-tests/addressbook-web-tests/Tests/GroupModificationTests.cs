@@ -18,6 +18,9 @@ namespace WebAddressbookTests
             group.Header = "ccc";
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();
+
+            if (oldGroups.Count < 1) app.Groups.Create(new GroupData("theta"));
+
             app.Groups.Modify(0, group);
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups[0].Name = group.Name;
