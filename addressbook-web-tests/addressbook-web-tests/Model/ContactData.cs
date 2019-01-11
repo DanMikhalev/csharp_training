@@ -26,12 +26,34 @@ namespace WebAddressbookTests
 
         public string Address { get; set; }
 
-        public string Home { get; set; }
+        public string HomePhone { get; set; }
 
-        public string Mobile { get; set; }
+        public string MobilePhone { get; set; }
 
-        public string Work { get; set; }
+        public string WorkPhone { get; set; }
+        public string AllPhones
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(allPhones)) return allPhones;
+                else
+                {
+                    return (Cleanup(HomePhone) + Cleanup(MobilePhone) + Cleanup(WorkPhone)).Trim();
+                }
+            }
+            set
+            {
+                allPhones = value;
+            }
+        }
 
+        private string Cleanup(string phone)
+        {
+            if (string.IsNullOrEmpty(phone)) return "";
+            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+        }
+
+        private string allPhones;
         public string Fax { get; set; }
 
         public string Email { get; set; }

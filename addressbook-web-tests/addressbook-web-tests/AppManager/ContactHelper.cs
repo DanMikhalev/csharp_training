@@ -22,6 +22,7 @@ namespace WebAddressbookTests
             return this;
         }
 
+
         internal ContactHelper Modify(int contactNum, ContactData contact)
         {
             InitModification(contactNum);
@@ -39,6 +40,41 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactData GetContactListFromForm(int index)
+        {
+            manager.Navigator.GoToContactsPage();
+            IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"));
+            string lastName = cells[1].Text;
+            string firstName = cells[2].Text;
+            string address = cells[3].Text;
+            string allPhones = cells[5].Text;
+            return new ContactData(firstName, lastName)
+            {
+                Address = address,
+                AllPhones = allPhones
+            };
+        }
+
+        public ContactData GetContactListFromTable(int index)
+        {
+            manager.Navigator.GoToContactsPage();
+            InitModification(index);
+            string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+
+            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+
+            return new ContactData(firstName, lastName)
+            {
+                Address = address,
+                HomePhone = homePhone,
+                MobilePhone = mobilePhone,
+                WorkPhone = workPhone
+            };
+        }
         private List<ContactData> contactCache = null;
         internal List<ContactData> GetContactList()
         {
@@ -117,9 +153,9 @@ namespace WebAddressbookTests
             Type(By.Name("title"), contact.Title);
             Type(By.Name("company"), contact.Company);
             Type(By.Name("address"), contact.Address);
-            Type(By.Name("home"), contact.Home);
-            Type(By.Name("mobile"), contact.Mobile);
-            Type(By.Name("work"), contact.Work);
+            Type(By.Name("home"), contact.HomePhone);
+            Type(By.Name("mobile"), contact.MobilePhone);
+            Type(By.Name("work"), contact.WorkPhone);
             Type(By.Name("fax"), contact.Fax);
             Type(By.Name("email"), contact.Email);
             Type(By.Name("email2"), contact.Email2);
