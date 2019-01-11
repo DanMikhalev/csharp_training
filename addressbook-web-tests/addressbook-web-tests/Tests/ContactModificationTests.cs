@@ -19,7 +19,11 @@ namespace WebAddressbookTests
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
-            if (oldContacts.Count < 1) app.Contacts.Create(new ContactData("Nick", "Emilson"));
+            if (oldContacts.Count < 1)
+            {
+                app.Contacts.Create(new ContactData("Nick", "Emilson"));
+                oldContacts = app.Contacts.GetContactList();
+            }
 
             app.Contacts.Modify(0, contact);
 

@@ -19,19 +19,23 @@ namespace WebAddressbookTests
             InitContactCreation();
             FillContactInfo(contact);
             SubminContactInfo();
+            manager.Navigator.GoToContactsPage();
             return this;
         }
-
+        private List<ContactData> contactCache = null;
         internal List<ContactData> GetContactList()
         {
-            List<ContactData> contacts = new List<ContactData>();
-            manager.Navigator.GoToContactsPage();
-            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
-            foreach (IWebElement element in elements)
+            if (contactCache == null)
             {
-                contacts.Add(new ContactData(element.FindElements(By.CssSelector("td"))[2].Text, element.FindElements(By.CssSelector("td"))[1].Text));
+                contactCache = new List<ContactData>();
+                manager.Navigator.GoToContactsPage();
+                ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+                foreach (IWebElement element in elements)
+                {
+                    contactCache.Add(new ContactData(element.FindElements(By.CssSelector("td"))[2].Text, element.FindElements(By.CssSelector("td"))[1].Text));
+                }
             }
-            return contacts;
+            return contactCache;
         }
 
         internal ContactHelper Modify(int contactNum, ContactData contact)
@@ -65,11 +69,13 @@ namespace WebAddressbookTests
         private ContactHelper SubmitUpdateCommand()
         {
             driver.FindElement(By.XPath("//input[@value='Update']")).Click();
+            contactCache = null;
             return this;
         }
         private ContactHelper SubmitDeleteCommand()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -87,6 +93,7 @@ namespace WebAddressbookTests
         public ContactHelper SubminContactInfo()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
+            contactCache = null;
             return this;
         }
 
