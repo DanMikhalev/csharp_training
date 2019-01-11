@@ -38,7 +38,10 @@ namespace WebAddressbookTests
             group.Footer = "";
             group.Header = "";
             List<GroupData> oldGroups = app.Groups.GetGroupList();
+
             app.Groups.Create(group);
+
+            Assert.AreEqual(app.Groups.GetGroupsCount(), oldGroups.Count + 1);
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups.Add(group);

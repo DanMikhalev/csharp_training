@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    public class ContactRemovalTests: AuthTestBase
+    public class ContactRemovalTests : AuthTestBase
     {
         [Test]
         public void ContactRemovalTest()
@@ -17,9 +17,11 @@ namespace WebAddressbookTests
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
             if (oldContacts.Count < 1) app.Contacts.Create(new ContactData("Nick", "Emilson"));
+            int oldContactsCount = app.Contacts.GetContactsCount();
 
             app.Contacts.RemoveFirst();
 
+            Assert.AreEqual(oldContactsCount-1, app.Contacts.GetContactsCount());
             List<ContactData> newContacts = app.Contacts.GetContactList();
             if (oldContacts.Count > 0) oldContacts.RemoveAt(0);
             oldContacts.Sort();

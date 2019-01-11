@@ -51,6 +51,12 @@ namespace WebAddressbookTests
             return new List<GroupData>(groupCache);
         }
 
+        public int GetGroupsCount()
+        {
+            manager.Navigator.GoToGroupsPage();
+            return driver.FindElements(By.CssSelector("span.group")).Count;
+        }
+
         private GroupHelper SubmitGroupModification()
         {
             driver.FindElement(By.Name("update")).Click();
