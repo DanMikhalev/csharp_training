@@ -36,11 +36,11 @@ namespace WebAddressbookTests
         {
             get
             {
-                if (!string.IsNullOrEmpty(allPhones)) return allPhones;
-                else
+                if (string.IsNullOrEmpty(allPhones))
                 {
-                    return (Cleanup(HomePhone) + Cleanup(MobilePhone) + Cleanup(WorkPhone)).Trim();
+                    allPhones = (Cleanup(HomePhone) + Cleanup(MobilePhone) + Cleanup(WorkPhone)).Trim();
                 }
+                return allPhones;
             }
             set
             {
@@ -51,7 +51,7 @@ namespace WebAddressbookTests
         private string Cleanup(string item)
         {
             if (string.IsNullOrEmpty(item)) return "";
-            return Regex.Replace(item, "[ -()", "") + "\r\n";
+            return Regex.Replace(item, "[- ()]", "") + "\r\n";
         }
 
         private string allPhones;
@@ -67,11 +67,11 @@ namespace WebAddressbookTests
         {
             get
             {
-                if (!string.IsNullOrEmpty(allEmails)) return allEmails;
-                else
+                if (string.IsNullOrEmpty(allEmails)) 
                 {
-                    return (Cleanup(Email) + Cleanup(Email2) + Cleanup(Email3)).Trim();
+                    allEmails = (Cleanup(Email) + Cleanup(Email2) + Cleanup(Email3)).Trim();
                 }
+                return allEmails;
             }
             set
             {
