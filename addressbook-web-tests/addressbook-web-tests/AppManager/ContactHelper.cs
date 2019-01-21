@@ -40,7 +40,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactData GetContactListFromForm(int index)
+        public ContactData GetContactListFromTable(int index)
         {
             manager.Navigator.GoToContactsPage();
             IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"));
@@ -57,7 +57,15 @@ namespace WebAddressbookTests
             };
         }
 
-        public ContactData GetContactListFromTable(int index)
+        internal ContactData GetContactListFromInfo(int index)
+        {
+            manager.Navigator.GoToContactsPage();
+            GoToDetailedInfo(index);
+            string info = driver.FindElement(By.Id("content")).Text;
+            return new ContactData() { DetailedInfo = info };
+        }
+
+        public ContactData GetContactListFromModificationForm(int index)
         {
             manager.Navigator.GoToContactsPage();
             InitModification(index);
@@ -113,6 +121,12 @@ namespace WebAddressbookTests
             return this;
         }
 
+        private ContactHelper GoToDetailedInfo(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index].
+                FindElement(By.TagName("img")).Click();
+            return this;
+        }
 
         private ContactHelper AcceptAlert()
         {

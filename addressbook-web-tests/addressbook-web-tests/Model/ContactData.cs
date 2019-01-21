@@ -67,7 +67,7 @@ namespace WebAddressbookTests
         {
             get
             {
-                if (string.IsNullOrEmpty(allEmails)) 
+                if (string.IsNullOrEmpty(allEmails))
                 {
                     allEmails = (Cleanup(Email) + Cleanup(Email2) + Cleanup(Email3)).Trim();
                 }
@@ -80,132 +80,146 @@ namespace WebAddressbookTests
         }
         public string Homepage { get; set; }
 
-internal DataInfo Birthday
-{
-    get
-    {
-        return birthday;
-    }
-
-    set
-    {
-        birthday = value;
-    }
-}
-internal DataInfo AdditionalDate
-{
-    get
-    {
-        return additionalDate;
-    }
-
-    set
-    {
-        additionalDate = value;
-    }
-}
-public string Address2 { get; set; }
-
-public string Phone2 { get; set; }
-
-public string Notes { get; set; }
-
-public class DataInfo
-{
-    private int day;
-    private int month;
-    private int year;
-    public DataInfo(int day, int month, int year)
-    {
-        this.day = day;
-        this.month = (month > 0 && month < 13) ? month : 1;
-        this.year = year;
-    }
-    public DataInfo()
-    {
-        day = 1;
-        month = 1;
-        year = 2018;
-    }
-    public int Day
-    {
-        get
+        internal DataInfo Birthday
         {
-            return day;
+            get
+            {
+                return birthday;
+            }
+
+            set
+            {
+                birthday = value;
+            }
+        }
+        internal DataInfo AdditionalDate
+        {
+            get
+            {
+                return additionalDate;
+            }
+
+            set
+            {
+                additionalDate = value;
+            }
+        }
+        public string Address2 { get; set; }
+
+        public string Phone2 { get; set; }
+
+        public string Notes { get; set; }
+        private string detailedInfo;
+        public string DetailedInfo
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(detailedInfo))
+                {
+                    detailedInfo = FirstName + MiddleName + LastName + NickName + Title + Company + Address + HomePhone + MobilePhone + WorkPhone + Fax + Email + Email2 + Email3;
+                }
+                return detailedInfo;
+            }
+            set
+            {
+                detailedInfo = Regex.Replace(value, @"\r\n|[HMWF]:| ", "");
+            }
         }
 
-        set
+        public class DataInfo
         {
-            day = value;
-        }
-    }
+            private int day;
+            private int month;
+            private int year;
+            public DataInfo(int day, int month, int year)
+            {
+                this.day = day;
+                this.month = (month > 0 && month < 13) ? month : 1;
+                this.year = year;
+            }
+            public DataInfo()
+            {
+                day = 1;
+                month = 1;
+                year = 2018;
+            }
+            public int Day
+            {
+                get
+                {
+                    return day;
+                }
 
-    public int Month
-    {
-        get
+                set
+                {
+                    day = value;
+                }
+            }
+
+            public int Month
+            {
+                get
+                {
+                    return month;
+                }
+
+                private set
+                {
+                    month = value;
+                }
+            }
+            public string GetMonthAsString()
+            {
+                return (month <= 12 && month >= 1) ? months[month - 1] : "None";
+            }
+            public int Year
+            {
+                get
+                {
+                    return year;
+                }
+
+                set
+                {
+                    year = value;
+                }
+            }
+            private string[] months = new string[] { "January", "February", "March", "April", "May", "June", "Jule", "August", "September", "October", "November", "December" };
+        }
+
+        public ContactData()
         {
-            return month;
+            FirstName = ""; LastName = "";
+            Birthday = new DataInfo();
         }
-
-        private set
+        public ContactData(string firstName, string lastName)
         {
-            month = value;
+            FirstName = firstName;
+            LastName = lastName;
+            this.Birthday = new DataInfo();
         }
-    }
-    public string GetMonthAsString()
-    {
-        return (month <= 12 && month >= 1) ? months[month - 1] : "None";
-    }
-    public int Year
-    {
-        get
+
+        public bool Equals(ContactData other)
         {
-            return year;
+            if (Object.ReferenceEquals(other, null)) return false;
+            if (Object.ReferenceEquals(this, other)) return true;
+            return FirstName == other.FirstName && LastName == other.LastName;
         }
-
-        set
+        public override int GetHashCode()
         {
-            year = value;
+            return FirstName.GetHashCode() + LastName.GetHashCode();
         }
-    }
-    private string[] months = new string[] { "January", "February", "March", "April", "May", "June", "Jule", "August", "September", "October", "November", "December" };
-}
 
-public ContactData()
-{
-    FirstName = "John";
-    MiddleName = "Unknown";
-    LastName = "Doe";
-    Birthday = new DataInfo();
-}
-public ContactData(string firstName, string lastName)
-{
-    FirstName = firstName;
-    LastName = lastName;
-    this.Birthday = new DataInfo();
-}
+        public override string ToString()
+        {
+            return "FirstName= " + FirstName + " LastName= " + LastName;
+        }
 
-public bool Equals(ContactData other)
-{
-    if (Object.ReferenceEquals(other, null)) return false;
-    if (Object.ReferenceEquals(this, other)) return true;
-    return FirstName == other.FirstName && LastName == other.LastName;
-}
-public override int GetHashCode()
-{
-    return FirstName.GetHashCode() + LastName.GetHashCode();
-}
-
-public override string ToString()
-{
-    return "FirstName= " + FirstName + " LastName= " + LastName;
-}
-
-public int CompareTo(ContactData other)
-{
-    if (Object.ReferenceEquals(other, null)) return 1;
-    if (FirstName.CompareTo(other.FirstName) == 0) return LastName.CompareTo(other.LastName);
-    return FirstName.CompareTo(other.FirstName);
-}
+        public int CompareTo(ContactData other)
+        {
+            if (Object.ReferenceEquals(other, null)) return 1;
+            if (FirstName.CompareTo(other.FirstName) == 0) return LastName.CompareTo(other.LastName);
+            return FirstName.CompareTo(other.FirstName);
+        }
     }
 }

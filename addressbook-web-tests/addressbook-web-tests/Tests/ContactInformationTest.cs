@@ -10,16 +10,27 @@ namespace WebAddressbookTests
     public class ContactInformationTests : AuthTestBase
     {
         [Test]
-        public void TestContactInformation()
+        public void ContactInformationTest_ModForm_Table()
         {
             app.Navigator.GoToContactsPage();
 
+            ContactData fromForm = app.Contacts.GetContactListFromModificationForm(0);
             ContactData fromTable = app.Contacts.GetContactListFromTable(0);
-            ContactData fromForm = app.Contacts.GetContactListFromForm(0);
-            Assert.AreEqual(fromTable, fromForm);
-            Assert.AreEqual(fromTable.Address, fromForm.Address);
-            Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);
-            Assert.AreEqual(fromTable.AllEmails, fromForm.AllEmails);
+            Assert.AreEqual(fromForm, fromTable);
+            Assert.AreEqual(fromForm.Address, fromTable.Address);
+            Assert.AreEqual(fromForm.AllPhones, fromTable.AllPhones);
+            Assert.AreEqual(fromForm.AllEmails, fromTable.AllEmails);
+        }
+
+        [Test]
+        public void ContactInformationTest_ModForm_DetailedInfo()
+        {
+            app.Navigator.GoToContactsPage();
+
+            ContactData fromForm = app.Contacts.GetContactListFromModificationForm(1);
+            ContactData fromInfo = app.Contacts.GetContactListFromInfo(1);
+            //Assert.AreEqual(fromForm, fromInfo);
+            Assert.AreEqual(fromForm.DetailedInfo, fromInfo.DetailedInfo);
         }
     }
 }
