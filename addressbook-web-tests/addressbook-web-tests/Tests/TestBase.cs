@@ -1,4 +1,6 @@
 ﻿using NUnit.Framework;
+using System;
+using System.Text;
 
 namespace WebAddressbookTests
 {
@@ -9,9 +11,19 @@ namespace WebAddressbookTests
         [SetUp]
         public void SetupApplicationManager()
         {
-            app = ApplicationManager.GetInstance();            
+            app = ApplicationManager.GetInstance();
         }
 
-
+        public static Random rnd = new Random();
+        public static string GenerateRandomString(int maxLength)
+        {
+            int l = Convert.ToInt32(rnd.NextDouble() * maxLength);
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < l; i++)
+            {
+                builder.Append(Convert.ToChar(Convert.ToInt32(rnd.NextDouble() * 223) + 32));
+            }
+            return builder.ToString();
+        }
     }
 }
