@@ -116,14 +116,26 @@ namespace WebAddressbookTests
             {
                 if (string.IsNullOrEmpty(detailedInfo))
                 {
-                    detailedInfo = FirstName + MiddleName + LastName + NickName + Title + Company + Address + HomePhone + MobilePhone + WorkPhone + Fax + Email + Email2 + Email3;
+                    detailedInfo =
+                        (string.IsNullOrEmpty(FirstName) ? "" : FirstName + " ") +
+                        (string.IsNullOrEmpty(MiddleName) ? "" : MiddleName + " ") +
+                        (string.IsNullOrEmpty(LastName) ? "" : LastName) +
+                         "\r\n" +
+                        (string.IsNullOrEmpty(NickName) ? "" : NickName + "\r\n") +
+                        (string.IsNullOrEmpty(Title) ? "" : Title + "\r\n") +
+                        (string.IsNullOrEmpty(Company) ? "" : Company + "\r\n") +
+                        (string.IsNullOrEmpty(Address) ? "" : Address + "\r\n") +
+                         "\r\n" +
+                        (string.IsNullOrEmpty(HomePhone) ? "" : "H: " + HomePhone + "\r\n") +
+                        (string.IsNullOrEmpty(MobilePhone) ? "" : "M: " + MobilePhone + "\r\n") +
+                        (string.IsNullOrEmpty(WorkPhone) ? "" : "W: " + WorkPhone + "\r\n") +
+                        (string.IsNullOrEmpty(Fax) ? "" : "F: " + Fax + "\r\n") +
+                         "\r\n" +
+                        AllEmails;
                 }
                 return detailedInfo;
             }
-            set
-            {
-                detailedInfo = Regex.Replace(value, @"\r\n|[HMWF]:| ", "");
-            }
+            set { detailedInfo = value; }
         }
 
         public class DataInfo
