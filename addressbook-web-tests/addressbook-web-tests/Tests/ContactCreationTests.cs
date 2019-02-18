@@ -16,6 +16,7 @@ namespace WebAddressbookTests
             }
             return contacts;
         }
+
         [Test, TestCaseSource("RandomContactDataProvider")]
         public void ContactCreationTest(ContactData contact)
         {
