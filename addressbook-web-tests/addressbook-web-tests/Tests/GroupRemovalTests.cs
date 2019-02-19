@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupRemovalTests : AuthTestBase
+    public class GroupRemovalTests : GroupTestBase
     {
 
 
@@ -15,14 +15,14 @@ namespace WebAddressbookTests
             {
                 app.Groups.Create(new GroupData("theta"));
             }
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll();
 
             GroupData groupToBeRemoved = oldGroups[0];
-            app.Groups.Remove(0);
+            app.Groups.Remove(groupToBeRemoved);
 
             Assert.AreEqual(app.Groups.GetGroupsCount(), oldGroups.Count - 1);
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
             if (oldGroups.Count > 0) oldGroups.RemoveAt(0);
             oldGroups.Sort();
             newGroups.Sort();

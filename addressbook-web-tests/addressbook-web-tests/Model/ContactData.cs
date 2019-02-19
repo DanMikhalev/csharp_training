@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LinqToDB.Mapping;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,30 +8,42 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
+    [Table(Name = "addressbook")]
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private DataInfo birthday = new DataInfo();
         private DataInfo additionalDate = new DataInfo();
 
+        [Column(Name = "id"), PrimaryKey, Identity]
         public string Id { get; set; }
+        [Column(Name = "firstname"), NotNull]
         public string FirstName { get; set; }
 
+        [Column(Name = "lastname"), NotNull]
         public string LastName { get; set; }
 
+        [Column(Name = "middlename"), NotNull]
         public string MiddleName { get; set; }
 
+        [Column(Name = "nickname"), NotNull]
         public string NickName { get; set; }
 
+        [Column(Name = "title"), NotNull]
         public string Title { get; set; }
 
+        [Column(Name = "company"), NotNull]
         public string Company { get; set; }
 
+        [Column(Name = "address"), NotNull]
         public string Address { get; set; }
 
+        [Column(Name = "home"), NotNull]
         public string HomePhone { get; set; }
 
+        [Column(Name = "mobile"), NotNull]
         public string MobilePhone { get; set; }
 
+        [Column(Name = "work"), NotNull]
         public string WorkPhone { get; set; }
         public string AllPhones
         {
@@ -55,12 +68,16 @@ namespace WebAddressbookTests
         }
 
         private string allPhones;
+        [Column(Name = "fax"), NotNull]
         public string Fax { get; set; }
 
+        [Column(Name = "email"), NotNull]
         public string Email { get; set; }
 
+        [Column(Name = "email2"), NotNull]
         public string Email2 { get; set; }
 
+        [Column(Name = "email3"), NotNull]
         public string Email3 { get; set; }
         private string allEmails;
         public string AllEmails
@@ -78,6 +95,7 @@ namespace WebAddressbookTests
                 allEmails = value;
             }
         }
+        [Column(Name = "homepage"), NotNull]
         public string Homepage { get; set; }
 
         internal DataInfo Birthday
@@ -104,10 +122,13 @@ namespace WebAddressbookTests
                 additionalDate = value;
             }
         }
+        [Column(Name = "address2"), NotNull]
         public string Address2 { get; set; }
 
+        [Column(Name = "phone2"), NotNull]
         public string Phone2 { get; set; }
 
+        [Column(Name = "notes"), NotNull]
         public string Notes { get; set; }
         private string detailedInfo;
         public string DetailedInfo
@@ -232,6 +253,13 @@ namespace WebAddressbookTests
             if (Object.ReferenceEquals(other, null)) return 1;
             if (FirstName.CompareTo(other.FirstName) == 0) return LastName.CompareTo(other.LastName);
             return FirstName.CompareTo(other.FirstName);
+        }
+        public static List<ContactData> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from g in db.Contacts select g).ToList();
+            }
         }
     }
 }
