@@ -25,5 +25,15 @@ namespace WebAddressbookTests
             }
             return builder.ToString();
         }
+
+        public static string GenerateRandomNumberString(int length)
+        {
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < length; i++)
+            {
+                builder.Append(Convert.ToString(Convert.ToInt32(rnd.NextDouble() * 9)));
+            }
+            return builder.ToString();
+        }
     }
 }
