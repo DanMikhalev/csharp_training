@@ -92,7 +92,9 @@
   <ItemGroup>
     <Compile Include="Model\AddressBookDB.cs" />
     <Compile Include="Model\GroupContactRelation.cs" />
+    <Compile Include="Tests\AddingContactToGroupTests.cs" />
     <Compile Include="Tests\ContactInformationTest.cs" />
+    <Compile Include="Tests\RemovingContactFromGroupTests.cs" />
     <Compile Include="Tests\GroupTestBase.cs" />
     <Compile Include="Tests\LoginTests.cs" />
     <Compile Include="Model\AccountData.cs" />
