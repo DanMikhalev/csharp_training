@@ -19,11 +19,15 @@ namespace mantis_tests
         private ApplicationManager()
         {
             driver = new FirefoxDriver();
-            baseURL = "http://localhost/addressbook";
+            baseURL = "http://localhost/mantisbt-2.19.0";
             Registration = new RegistrationHelper(this);
             Ftp = new FtpHelper(this);
             James = new JamesHelper(this);
             Mail = new MailHelper(this);
+
+            Admin = new AdminHelper(this, baseURL);
+
+            API = new APIHelper(this);
 
             Login = new LoginHelper(this);
             Navigation = new UrlNavigationHelper(this);
@@ -60,5 +64,7 @@ namespace mantis_tests
         public LoginHelper Login { get; set; }
         public UrlNavigationHelper Navigation { get; set; }
         public ProjectManagementHelper ProjManager { get; set; }
+        public AdminHelper Admin { get; set; }
+        public APIHelper API { get; set; }
     }
 }

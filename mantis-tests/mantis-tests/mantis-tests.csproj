@@ -47,6 +47,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.10.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.10.7\lib\net452\MySql.Data.dll</HintPath>
       <Private>True</Private>
@@ -57,6 +61,18 @@
     </Reference>
     <Reference Include="OpaqueMail, Version=2.4.3.0, Culture=neutral, PublicKeyToken=455c946c2e2ca7ef, processorArchitecture=MSIL">
       <HintPath>..\packages\OpaqueMail.2.4.3\lib\OpaqueMail.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RazorHosting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleBrowser.0.5.61.0\lib\net40\RazorHosting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimpleBrowser, Version=0.5.61.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleBrowser.0.5.61.0\lib\net40\SimpleBrowser.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimpleBrowser.WebDriver, Version=0.5.43.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleBrowser.WebDriver.0.5.43\lib\net40\SimpleBrowser.WebDriver.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -73,7 +89,9 @@
       <HintPath>..\packages\System.Net.FtpClient.1.0.5824.34026\lib\net40\System.Net.FtpClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -99,6 +117,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="appmanager\AdminHelper.cs" />
+    <Compile Include="appmanager\ApiHelper.cs" />
     <Compile Include="appmanager\ApplicationManager.cs" />
     <Compile Include="appmanager\FtpHelper.cs" />
     <Compile Include="appmanager\HelperBase.cs" />
@@ -108,11 +128,18 @@
     <Compile Include="appmanager\ProjectManagementHelper.cs" />
     <Compile Include="appmanager\UrlNavigationHelper.cs" />
     <Compile Include="appmanager\TelnetInterface.cs" />
+    <Compile Include="model\IssueData.cs" />
     <Compile Include="model\ProjectData.cs" />
     <Compile Include="model\ProjectDB.cs" />
+    <Compile Include="Service References\Mantis\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="tests\AccountCreationTests.cs" />
     <Compile Include="model\AccountData.cs" />
     <Compile Include="appmanager\RegistrationHelper.cs" />
+    <Compile Include="tests\AddNewIssueTests.cs" />
     <Compile Include="tests\ProjectAddingTests.cs" />
     <Compile Include="tests\ProjectManagementTests.cs" />
     <Compile Include="tests\ProjectRemovingTests.cs" />
@@ -122,6 +149,51 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="LinqToDB.Templates\CopyMe.MySql.tt.txt" />
+    <None Include="Service References\Mantis\mantis_tests.Mantis.AccountData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Mantis\mantis_tests.Mantis.CustomFieldDefinitionData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Mantis\mantis_tests.Mantis.FilterData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Mantis\mantis_tests.Mantis.HistoryData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Mantis\mantis_tests.Mantis.IssueData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Mantis\mantis_tests.Mantis.IssueHeaderData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Mantis\mantis_tests.Mantis.ObjectRef.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Mantis\mantis_tests.Mantis.ProfileDataSearchResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Mantis\mantis_tests.Mantis.ProjectAttachmentData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Mantis\mantis_tests.Mantis.ProjectData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Mantis\mantis_tests.Mantis.ProjectVersionData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Mantis\mantis_tests.Mantis.TagDataSearchResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Mantis\mantis_tests.Mantis.UserData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Mantis\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Mantis\configuration.svcinfo" />
+    <None Include="Service References\Mantis\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -144,6 +216,13 @@
     <None Include="LinqToDB.Templates\T4Model.ttinclude" />
     <None Include="LinqToDB.Templates\Validation.ttinclude" />
     <None Include="packages.config" />
+    <None Include="Service References\Mantis\mantisconnect.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\Mantis\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

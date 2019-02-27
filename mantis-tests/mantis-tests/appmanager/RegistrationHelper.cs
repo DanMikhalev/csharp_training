@@ -30,7 +30,7 @@ namespace mantis_tests
 
         private void FillPasswordForm(string url, AccountData account)
         {
-            driver.Url = url;
+            driver.Url = url;            
             driver.FindElement(By.Name("realname")).SendKeys(account.Name);
             driver.FindElement(By.Name("password")).SendKeys(account.Password);
             driver.FindElement(By.Name("password_confirm")).SendKeys(account.Password);
