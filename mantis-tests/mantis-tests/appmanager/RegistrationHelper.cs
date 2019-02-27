@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace mantis_tests
 {
-    public class RegistrationHelper :HelperBase
+    public class RegistrationHelper :UrlNavigationHelper
     {
         public RegistrationHelper(ApplicationManager manager) : base(manager) { }
 
@@ -42,10 +42,6 @@ namespace mantis_tests
             return Regex.Match(message, @"http://\S*").Value;
         }
 
-        private void OpenRegistrationForm()
-        {
-            driver.FindElement(By.CssSelector("a.back-to-login-link")).Click();
-        }
 
         private void SubmitRegistration()
         {
@@ -58,9 +54,5 @@ namespace mantis_tests
             driver.FindElement(By.Name("email")).SendKeys(account.Email);
         }
 
-        private void OpenMainPage()
-        {
-            manager.Driver.Url = "http://localhost/mantisbt-2.19.0/login_page.php";
-        }
     }
 }

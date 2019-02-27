@@ -24,6 +24,10 @@ namespace mantis_tests
             Ftp = new FtpHelper(this);
             James = new JamesHelper(this);
             Mail = new MailHelper(this);
+
+            Login = new LoginHelper(this);
+            Navigation = new UrlNavigationHelper(this);
+            ProjManager = new ProjectManagementHelper(this);
         }
         ~ApplicationManager()
         {
@@ -53,5 +57,8 @@ namespace mantis_tests
         public FtpHelper Ftp { get; set; }
         public JamesHelper James { get; set; }
         public MailHelper Mail { get; set; }
+        public LoginHelper Login { get; set; }
+        public UrlNavigationHelper Navigation { get; set; }
+        public ProjectManagementHelper ProjManager { get; set; }
     }
 }
