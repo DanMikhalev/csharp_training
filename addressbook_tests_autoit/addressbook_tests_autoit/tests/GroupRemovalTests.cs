@@ -1,26 +1,25 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace addressbook_tests_autoit
 {
     [TestFixture]
-    public class GroupCreationTests :TestBase
+    public class GroupRemovalTests : TestBase
     {
         [Test]
-        public void TestGroupCreation()
+        public void TestGroupRemoval()
         {
             List<GroupData> oldGroups = app.Groups.GetGroupList();
-
-            GroupData newGroup = new GroupData()
-            {
-                Name = "test"
-            };
-            app.Groups.Add(newGroup);
+            
+            app.Groups.RemoveAt(1);
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
 
-            oldGroups.Add(newGroup);
+            oldGroups.RemoveAt(1);
             oldGroups.Sort();
             newGroups.Sort();
 

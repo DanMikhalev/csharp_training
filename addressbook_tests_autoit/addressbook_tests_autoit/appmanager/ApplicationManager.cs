@@ -15,7 +15,7 @@ namespace addressbook_tests_autoit
         public ApplicationManager()
         {
             aux = new AutoItX3();
-            aux.Run(@"C:\FreeAddressBook\AddressBook.exe");
+            aux.Run(@"C:\FreeAddressBookPortable\AddressBook.exe","", aux.SW_MAXIMIZE);
             aux.WinWait(WINTITLE);
             aux.WinActivate(WINTITLE);
             aux.WinWaitActive(WINTITLE);
@@ -26,7 +26,7 @@ namespace addressbook_tests_autoit
 
         public void Stop()
         {
-            aux.ControlClick(WINTITLE, "", "");
+            aux.ControlClick(WINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d510");
         }
     }
 }
