@@ -20,6 +20,10 @@ namespace mantis_tests
                 category = issueData.Category,
                 project = new Mantis.ObjectRef() { id = project.Id }
             };
+            //var sdf = client.mc_enum_access_levels(account.Name, account.Password);
+            //var projdata = client.mc_projects_get_user_accessible(account.Name, account.Password);
+            string version = client.mc_version();
+            System.Console.Out.WriteLine(version);
             client.mc_issue_add(account.Name, account.Password, issue);
         }
     }
