@@ -16,8 +16,19 @@ namespace mantis_tests
         {
             List<ProjectData> oldList = ProjectData.GetAll();
 
-            string idRemoved = app.ProjManager.RemoveProject(0);
-            oldList.Remove(oldList.First(x => x.Id == idRemoved));
+            AccountData account = new AccountData() { Name = "administrator", Password = "root" };
+
+            if (oldList.Count < 1)
+            {
+                Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
+                Mantis.ProjectData tempProj = new Mantis.ProjectData() { name = "TestProjectTemp" };
+                client.mc_project_add("administrator", "root", tempProj);
+                oldList = ProjectData.GetAll();
+            }
+
+            app.ProjManager.Remove(account, oldList[0]);
+
+            oldList.RemoveAt(0);
             oldList.Sort();
 
             List<ProjectData> newList = ProjectData.GetAll();
@@ -29,8 +40,11 @@ namespace mantis_tests
             bool contains = true;
             foreach (ProjectData proj in newList)
             {
-                if (oldList.First(x => x.Id == proj.Id) == null) contains = false;
-                break;
+                if (oldList.First(x => x.Id == proj.Id) == null)
+                {
+                    contains = false;
+                    break;
+                }
             }
             Assert.IsTrue(contains);
         }

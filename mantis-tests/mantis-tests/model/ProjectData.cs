@@ -26,6 +26,13 @@ namespace mantis_tests
             }
         }
 
+        public static List<ProjectData> GetAll(AccountData account)
+        {
+            Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
+            Mantis.ProjectData[] projects = client.mc_projects_get_user_accessible(account.Name, account.Password);
+            return projects.Select(proj => new ProjectData() { Name = proj.name, Description = proj.description, Id = proj.id }).ToList();
+        }
+
         public override string ToString()
         {
             return Name + " " + Description;

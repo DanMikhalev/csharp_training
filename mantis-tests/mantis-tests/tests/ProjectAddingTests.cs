@@ -33,6 +33,6 @@ namespace mantis_tests
             Assert.AreEqual(oldProjectsList, newProjectsList);
             Assert.IsTrue(newProjectsList.Contains(project));
         }
-
+        
     }
 }

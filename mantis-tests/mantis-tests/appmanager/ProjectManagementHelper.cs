@@ -30,6 +30,12 @@ namespace mantis_tests
             return resultId;
         }
 
+        public void Remove(AccountData account, ProjectData project)
+        {
+            Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
+            client.mc_project_delete(account.Name, account.Password, project.Id);
+        }
+
         private void RemoveButtonClick()
         {
             driver.FindElement(By.XPath(@"//input[@value='Удалить проект']")).Click();
@@ -44,6 +50,7 @@ namespace mantis_tests
                 Id = Regex.Match(elem.FindElement(By.TagName("a")).GetAttribute("href"), @"\d+$").Value
             }).ToList();
         }
+        
 
         private void InitProjectConfiguration(string id)
         {
