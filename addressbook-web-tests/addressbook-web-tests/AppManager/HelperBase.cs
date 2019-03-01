@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace mantis_tests
+namespace WebAddressbookTests
 {
     public class HelperBase
     {

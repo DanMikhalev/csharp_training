@@ -7,14 +7,34 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    class AddingContactToGroupTests:AuthTestBase
+    class AddingContactToGroupTests : AuthTestBase
     {
         [Test]
         public void TestAddingContactToGroup()
         {
-            GroupData group = GroupData.GetAll()[0];
+            List<GroupData> groups = GroupData.GetAll();
+            if (groups.Count == 0)
+            {
+                app.Groups.Create(new GroupData()
+                {
+                    Name = "testRemContFromGroup",
+                    Footer = "test",
+                    Header = "test"
+                });
+                groups = GroupData.GetAll();
+            }
+            GroupData group = groups[0];
+
             List<ContactData> oldList = group.GetContacts();
-            ContactData contact = ContactData.GetAll().Except(oldList).First();
+
+            ContactData contact;
+            if (oldList.Count == 0 || ContactData.GetAll().Except(oldList).Count() == 0)
+            {
+                contact = new ContactData() { FirstName = GenerateRandomString(25), LastName = GenerateRandomString(10) };
+                app.Contacts.Create(contact);
+            }
+
+            contact = ContactData.GetAll().Except(oldList).First();
 
             app.Contacts.AddContactToGroup(contact, group);
 
