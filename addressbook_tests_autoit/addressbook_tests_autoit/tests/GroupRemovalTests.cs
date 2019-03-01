@@ -14,12 +14,18 @@ namespace addressbook_tests_autoit
         public void TestGroupRemoval()
         {
             List<GroupData> oldGroups = app.Groups.GetGroupList();
+
+            if (oldGroups.Count == 0)
+            {
+                app.Groups.Add(new GroupData() { Name = "test" });
+                oldGroups = app.Groups.GetGroupList();
+            }
             
-            app.Groups.RemoveAt(1);
+            app.Groups.RemoveAt(0);
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
 
-            oldGroups.RemoveAt(1);
+            oldGroups.RemoveAt(0);
             oldGroups.Sort();
             newGroups.Sort();
 
